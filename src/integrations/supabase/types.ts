@@ -14,7 +14,87 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      classes: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          duration: string
+          id: string
+          name: string
+          original_price: number | null
+          sale_label: string
+          sale_price: number
+          sort_order: number
+          subjects: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          id?: string
+          name: string
+          original_price?: number | null
+          sale_label?: string
+          sale_price?: number
+          sort_order?: number
+          subjects?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          duration?: string
+          id?: string
+          name?: string
+          original_price?: number | null
+          sale_label?: string
+          sale_price?: number
+          sort_order?: number
+          subjects?: string
+        }
+        Relationships: []
+      }
+      materials: {
+        Row: {
+          class_name: string
+          created_at: string
+          description: string
+          file_path: string
+          file_url: string
+          id: string
+          kind: string
+          subject: string
+          title: string
+          uploaded_by: string
+        }
+        Insert: {
+          class_name?: string
+          created_at?: string
+          description?: string
+          file_path: string
+          file_url: string
+          id?: string
+          kind?: string
+          subject?: string
+          title: string
+          uploaded_by?: string
+        }
+        Update: {
+          class_name?: string
+          created_at?: string
+          description?: string
+          file_path?: string
+          file_url?: string
+          id?: string
+          kind?: string
+          subject?: string
+          title?: string
+          uploaded_by?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
