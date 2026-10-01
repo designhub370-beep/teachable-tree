@@ -1,5 +1,7 @@
 import { Link } from "@tanstack/react-router";
-import { GraduationCap, Phone } from "lucide-react";
+import { LogOut, Phone } from "lucide-react";
+import logo from "@/assets/logo.png";
+import { supabase } from "@/integrations/supabase/client";
 
 export const PHONES = ["+91 99583 01091", "+91 98107 77614"];
 export const tel = (p: string) => `tel:${p.replace(/\s/g, "")}`;
@@ -22,9 +24,7 @@ export function SiteHeader() {
       </div>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-2.5">
-          <span className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground">
-            <GraduationCap className="size-5" />
-          </span>
+          <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 rounded-xl bg-foreground p-1" />
           <span className="leading-tight">
             <span className="block font-display text-lg font-semibold">Aroma Academy</span>
             <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -32,15 +32,18 @@ export function SiteHeader() {
             </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-4 sm:gap-6">
+        <nav className="flex items-center gap-3 sm:gap-6">
           <Link to="/courses" className={linkCls} activeProps={active}>Courses</Link>
           <Link to="/materials" className={linkCls} activeProps={active}>Study Material</Link>
           <Link
             to="/staff"
             className="rounded-full border border-border px-3 py-1.5 text-sm font-semibold hover:bg-secondary"
           >
-            Login
+            Staff
           </Link>
+          <button onClick={() => supabase.auth.signOut()} aria-label="Logout" className="text-muted-foreground hover:text-foreground">
+            <LogOut className="size-4" />
+          </button>
         </nav>
       </div>
     </header>
@@ -92,7 +95,7 @@ export function PriceTag({
   return (
     <div>
       {label && (
-        <span className="inline-flex items-center rounded-full bg-accent px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-accent-foreground">
+        <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wide text-primary-foreground">
           {label}
         </span>
       )}
