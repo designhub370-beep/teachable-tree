@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-sans: "Hind", system-ui, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -53,45 +53,35 @@
 
 :root {
   --radius: 0.875rem;
-  --background: oklch(0.975 0.012 85);
-  --foreground: oklch(0.22 0.045 260);
-  --paper: oklch(0.99 0.006 85);
-  --card: oklch(0.995 0.004 85);
-  --card-foreground: oklch(0.22 0.045 260);
-  --popover: oklch(0.995 0.004 85);
-  --popover-foreground: oklch(0.22 0.045 260);
-  --primary: oklch(0.3 0.08 262);
-  --primary-foreground: oklch(0.98 0.01 85);
-  --secondary: oklch(0.94 0.02 85);
-  --secondary-foreground: oklch(0.25 0.05 260);
-  --muted: oklch(0.94 0.015 85);
-  --muted-foreground: oklch(0.5 0.03 260);
-  --accent: oklch(0.76 0.16 65);
-  --accent-foreground: oklch(0.22 0.05 260);
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.98 0 0);
-  --success: oklch(0.55 0.14 155);
-  --ink: oklch(0.2 0.05 262);
-  --ink-foreground: oklch(0.96 0.015 85);
-  --border: oklch(0.88 0.02 85);
-  --input: oklch(0.88 0.02 85);
-  --ring: oklch(0.76 0.16 65);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
-  --shadow-soft: 0 1px 2px oklch(0.2 0.05 262 / 0.06), 0 8px 24px -12px oklch(0.2 0.05 262 / 0.18);
-  --shadow-lift: 0 20px 40px -18px oklch(0.2 0.05 262 / 0.35);
-  --gradient-ink: linear-gradient(160deg, oklch(0.24 0.07 262), oklch(0.17 0.05 262));
+  --background: #0d1631;
+  --foreground: #eef2fb;
+  --paper: #111c3b;
+  --card: #16244a;
+  --card-foreground: #eef2fb;
+  --popover: #16244a;
+  --popover-foreground: #eef2fb;
+  --primary: #f2c14e;
+  --primary-foreground: #111c3b;
+  --secondary: #1d2f5c;
+  --secondary-foreground: #eef2fb;
+  --muted: #1a2a52;
+  --muted-foreground: #a9b6d3;
+  --accent: #1c9a8b;
+  --accent-foreground: #ffffff;
+  --destructive: #e5534b;
+  --destructive-foreground: #ffffff;
+  --success: #3fcf9e;
+  --ink: #0a1128;
+  --ink-foreground: #eef2fb;
+  --border: #2a3d6e;
+  --input: #2a3d6e;
+  --ring: #f2c14e;
+  --chart-1: #f2c14e; --chart-2: #1c9a8b; --chart-3: #234a72; --chart-4: #e5534b; --chart-5: #a9b6d3;
+  --sidebar: #111c3b; --sidebar-foreground: #eef2fb; --sidebar-primary: #f2c14e; --sidebar-primary-foreground: #111c3b;
+  --sidebar-accent: #1d2f5c; --sidebar-accent-foreground: #eef2fb; --sidebar-border: #2a3d6e; --sidebar-ring: #f2c14e;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.3), 0 10px 30px -12px rgb(0 0 0 / 0.5);
+  --shadow-lift: 0 24px 48px -18px rgb(0 0 0 / 0.6);
+  --gradient-ink: linear-gradient(160deg, #234a72, #0a1128);
 }
 
 @layer base {
@@ -100,6 +90,11 @@
   }
   body {
     background-color: var(--color-background);
+    background-image:
+      radial-gradient(circle at 15% 10%, rgb(28 154 139 / 0.18), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgb(242 193 78 / 0.10), transparent 35%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' font-family='serif' font-size='18'%3E%3Ctext x='20' y='40'%3Ea%C2%B2+b%C2%B2=c%C2%B2%3C/text%3E%3Ctext x='190' y='90'%3E%E2%88%AB x dx%3C/text%3E%3Ctext x='40' y='150'%3EH%E2%82%82O%3C/text%3E%3Ctext x='170' y='200'%3EE=mc%C2%B2%3C/text%3E%3Ctext x='30' y='260'%3E%CF%80r%C2%B2%3C/text%3E%3Ctext x='200' y='290'%3E%E2%88%9Ax%3C/text%3E%3Ctext x='120' y='30'%3E%E2%9C%8E%3C/text%3E%3Ctext x='110' y='120'%3EABC%3C/text%3E%3C/g%3E%3C/svg%3E");
+    background-attachment: fixed;
     color: var(--color-foreground);
     font-family: var(--font-sans);
   }
@@ -123,8 +118,8 @@
     to bottom,
     transparent 0,
     transparent 31px,
-    color-mix(in oklab, var(--primary) 8%, transparent) 31px,
-    color-mix(in oklab, var(--primary) 8%, transparent) 32px
+    color-mix(in oklab, var(--foreground) 6%, transparent) 31px,
+    color-mix(in oklab, var(--foreground) 6%, transparent) 32px
   );
 }
 @utility lift {

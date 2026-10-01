@@ -41,9 +41,10 @@ function Home() {
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold">
               <span className="size-1.5 rounded-full bg-accent" /> Rahul Sharma Sir · Director
             </span>
-            <h1 className="mt-5 text-4xl font-semibold leading-[1.05] sm:text-6xl">
-              Padhai jo <em className="text-primary not-italic underline decoration-accent decoration-4 underline-offset-4">result</em> laaye.
+            <h1 className="mt-5 text-5xl font-extrabold leading-[0.95] sm:text-7xl">
+              Aroma Academy <span className="block text-primary">of Education</span>
             </h1>
+            <p className="mt-3 text-xl font-semibold">Padhai jo result laaye.</p>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
               Class 9–12 (Science, Commerce, Arts) aur SSC, CTET, UPTET, DSSSB, UPSC, Delhi & UP Police — sab ek hi jagah, concept se result tak.
             </p>
