@@ -1,11 +1,12 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import type { Session } from "@supabase/supabase-js";
-import { BookOpen, Calculator, FlaskConical, Loader2, Trophy } from "lucide-react";
+import { BookOpen, Calculator, FlaskConical, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
 import hero from "@/assets/hero.jpg";
+import { LogoLoader } from "./logo-loader";
 import { SiteFooter, SiteHeader } from "./site-chrome";
 
 export function StudentGate({ children }: { children: ReactNode }) {
@@ -22,7 +23,7 @@ export function StudentGate({ children }: { children: ReactNode }) {
   if (session === undefined)
     return (
       <div className="grid min-h-screen place-items-center">
-        <img src={logo} alt="" width={80} height={80} className="size-20 animate-pulse rounded-2xl bg-foreground p-2" />
+        <LogoLoader />
       </div>
     );
   if (!session) return <SignupScreen />;
@@ -103,7 +104,7 @@ function SignupScreen() {
           <input required type="password" minLength={6} placeholder="Password (min 6)" value={f.password} onChange={set("password")} className={input} />
         </div>
         <button disabled={busy} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3.5 font-bold text-primary-foreground hover:opacity-90 disabled:opacity-60">
-          {busy && <Loader2 className="size-4 animate-spin" />} {mode === "signup" ? "Free Account Banayein" : "Sign In"}
+          {busy && <span className="size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />} {mode === "signup" ? "Free Account Banayein" : "Sign In"}
         </button>
         <button type="button" onClick={() => setMode(mode === "signup" ? "login" : "signup")} className="mt-4 w-full text-sm text-muted-foreground hover:text-foreground">
           {mode === "signup" ? "Pehle se account hai? Sign in" : "Naya student? Free signup"}

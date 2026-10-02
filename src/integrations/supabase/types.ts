@@ -10,10 +10,43 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.17"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
+      admissions: {
+        Row: {
+          class_name: string
+          contacted: boolean
+          created_at: string
+          id: string
+          message: string
+          parent_name: string
+          phone: string
+          student_name: string
+        }
+        Insert: {
+          class_name?: string
+          contacted?: boolean
+          created_at?: string
+          id?: string
+          message?: string
+          parent_name?: string
+          phone: string
+          student_name: string
+        }
+        Update: {
+          class_name?: string
+          contacted?: boolean
+          created_at?: string
+          id?: string
+          message?: string
+          parent_name?: string
+          phone?: string
+          student_name?: string
+        }
+        Relationships: []
+      }
       classes: {
         Row: {
           category: string
@@ -56,6 +89,83 @@ export type Database = {
         }
         Relationships: []
       }
+      event_registrations: {
+        Row: {
+          age: number | null
+          class_name: string
+          created_at: string
+          event_id: string
+          id: string
+          phone: string
+          student_name: string
+        }
+        Insert: {
+          age?: number | null
+          class_name?: string
+          created_at?: string
+          event_id: string
+          id?: string
+          phone: string
+          student_name: string
+        }
+        Update: {
+          age?: number | null
+          class_name?: string
+          created_at?: string
+          event_id?: string
+          id?: string
+          phone?: string
+          student_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "event_registrations_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      events: {
+        Row: {
+          age_rule: string
+          class_range: string
+          created_at: string
+          description: string
+          event_date: string | null
+          id: string
+          photo_paths: string[]
+          rules: string
+          status: string
+          title: string
+        }
+        Insert: {
+          age_rule?: string
+          class_range?: string
+          created_at?: string
+          description?: string
+          event_date?: string | null
+          id?: string
+          photo_paths?: string[]
+          rules?: string
+          status?: string
+          title: string
+        }
+        Update: {
+          age_rule?: string
+          class_range?: string
+          created_at?: string
+          description?: string
+          event_date?: string | null
+          id?: string
+          photo_paths?: string[]
+          rules?: string
+          status?: string
+          title?: string
+        }
+        Relationships: []
+      }
       materials: {
         Row: {
           class_name: string
@@ -92,6 +202,39 @@ export type Database = {
           subject?: string
           title?: string
           uploaded_by?: string
+        }
+        Relationships: []
+      }
+      teachers: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          photo_path: string
+          qualification: string
+          sections: Json
+          sort_order: number
+          subjects: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          photo_path?: string
+          qualification?: string
+          sections?: Json
+          sort_order?: number
+          subjects?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          photo_path?: string
+          qualification?: string
+          sections?: Json
+          sort_order?: number
+          subjects?: string
         }
         Relationships: []
       }
