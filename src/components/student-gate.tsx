@@ -1,7 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import type { Session } from "@supabase/supabase-js";
-import { BookOpen, Calculator, FlaskConical, Loader2, Trophy } from "lucide-react";
+import { BookOpen, Calculator, FlaskConical, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import logo from "@/assets/logo.png";
