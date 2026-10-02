@@ -22,7 +22,7 @@ async function sign(paths: string[]) {
   const db = await admin();
   const { data } = await db.storage.from("materials").createSignedUrls(clean, 60 * 60 * 6);
   const map: Record<string, string> = {};
-  data?.forEach((d, i) => { if (d.signedUrl) map[clean[i]] = d.signedUrl; });
+  data?.forEach((d, i) => { const k = clean[i]; if (d.signedUrl && k) map[k] = d.signedUrl; });
   return map;
 }
 

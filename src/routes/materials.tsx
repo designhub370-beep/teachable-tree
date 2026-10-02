@@ -63,7 +63,7 @@ function Materials() {
             onClick={() => setKind(k)}
             className={`rounded-full px-4 py-1.5 text-sm font-semibold transition-colors ${kind === k ? "bg-primary text-primary-foreground" : "border border-border bg-card hover:bg-secondary"}`}
           >
-            {k === "all" ? "All" : KIND_META[k].label}
+            {k === "all" ? "All" : KIND_META[k]?.label}
           </button>
         ))}
       </div>
@@ -73,7 +73,7 @@ function Materials() {
       ) : (
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((m) => {
-            const meta = KIND_META[m.kind] ?? KIND_META.pdf;
+            const meta = KIND_META[m.kind] ?? KIND_META["pdf"]!;
             return (
               <article key={m.id} className="lift flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft">
                 {m.kind === "image" && m.url ? (

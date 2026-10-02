@@ -3,7 +3,7 @@ import { LogOut, Phone } from "lucide-react";
 import logo from "@/assets/logo.png";
 import { supabase } from "@/integrations/supabase/client";
 
-export const PHONES = ["+91 99583 01091", "+91 98107 77614"];
+export const PHONES: [string, string] = ["+91 99583 01091", "+91 98107 77614"];
 export const tel = (p: string) => `tel:${p.replace(/\s/g, "")}`;
 export const inr = (n: number) => "₹" + n.toLocaleString("en-IN");
 
