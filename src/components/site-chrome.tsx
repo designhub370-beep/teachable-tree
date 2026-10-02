@@ -32,9 +32,12 @@ export function SiteHeader() {
             </span>
           </span>
         </Link>
-        <nav className="flex items-center gap-3 sm:gap-6">
+        <nav className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 sm:gap-x-5">
           <Link to="/courses" className={linkCls} activeProps={active}>Courses</Link>
-          <Link to="/materials" className={linkCls} activeProps={active}>Study Material</Link>
+          <Link to="/materials" className={linkCls} activeProps={active}>Material</Link>
+          <Link to="/gallery" className={linkCls} activeProps={active}>Gallery</Link>
+          <Link to="/teachers" className={linkCls} activeProps={active}>Teachers</Link>
+          <Link to="/admission" className="rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground">Admission</Link>
           <Link
             to="/staff"
             className="rounded-full border border-border px-3 py-1.5 text-sm font-semibold hover:bg-secondary"
@@ -69,6 +72,9 @@ export function SiteFooter() {
           <p className="text-xs uppercase tracking-[0.2em] opacity-60">Explore</p>
           <Link to="/courses">Courses & Fees</Link>
           <Link to="/materials">Study Material</Link>
+          <Link to="/gallery">Explore Gallery</Link>
+          <Link to="/teachers">Our Teachers</Link>
+          <Link to="/admission">Admission Form</Link>
           <Link to="/staff">Teacher / Head Login</Link>
         </div>
       </div>
