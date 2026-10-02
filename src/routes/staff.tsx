@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Loader2, LogOut, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { LogoLoader } from "@/components/logo-loader";
 import logo from "@/assets/logo.png";
 import {
   addMaterial, createUploadUrl, deleteClass, deleteMaterial, saveClass, staffLogin, staffLogout,
@@ -11,6 +12,7 @@ import {
 } from "@/lib/academy.functions";
 import { classesQuery, materialsQuery, roleQuery } from "@/lib/queries";
 import { inr } from "@/components/site-chrome";
+import { EventsPanel, InboxPanel, TeachersPanel } from "@/components/head-panels";
 
 export const Route = createFileRoute("/staff")({
   head: () => ({
@@ -49,13 +51,16 @@ function Staff() {
         )}
       </div>
       {isLoading ? (
-        <Loader2 className="mx-auto mt-20 size-8 animate-spin" />
+        <LogoLoader className="mx-auto mt-20" />
       ) : !role ? (
         <LoginForm />
       ) : (
         <div className="mt-8 space-y-8">
+          {role === "head" && <InboxPanel />}
           <UploadPanel />
           {role === "head" && <ClassesPanel />}
+          {role === "head" && <EventsPanel />}
+          {role === "head" && <TeachersPanel />}
           <MaterialsPanel />
         </div>
       )}
@@ -76,7 +81,7 @@ function LoginForm() {
         setBusy(true);
         const r = await staffLogin({ data: { role, password: pw } });
         setBusy(false);
-        if (!r.ok) return toast.error("Galat password");
+        if (!r.ok) { toast.error("Galat password"); return; }
         toast.success("Login ho gaya");
         qc.invalidateQueries({ queryKey: ["role"] });
       }}
@@ -109,7 +114,7 @@ function UploadPanel() {
       className={card}
       onSubmit={async (e) => {
         e.preventDefault();
-        if (!file) return toast.error("File chuniye");
+        if (!file) { toast.error("File chuniye"); return; }
         setBusy(true);
         try {
           const { path, token } = await createUploadUrl({ data: { filename: file.name } });
