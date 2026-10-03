@@ -59,8 +59,8 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-3">
         <div>
           <p className="font-display text-xl font-semibold">Aroma Academy of Education</p>
-          <p className="mt-2 text-sm opacity-70">Director: Rahul Sharma Sir</p>
-          <p className="mt-1 text-sm opacity-70">Class 9–12 · Commerce · Arts · Science · Govt Exams</p>
+          <p className="mt-2 text-sm opacity-70">Director: Rahul Sharma</p>
+          <p className="mt-1 text-sm opacity-70">Classes 9–12 · Science · Commerce · Arts · Government Exams</p>
         </div>
         <div>
           <p className="text-xs uppercase tracking-[0.2em] opacity-60">Call us</p>

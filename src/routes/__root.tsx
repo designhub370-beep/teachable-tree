@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Aroma Academy of Education" },
-      { name: "description", content: "Class 9-12 aur competitive exams coaching — Rahul Sharma Sir." },
+      { name: "description", content: "Classes 9-12 and competitive exam coaching at Aroma Academy of Education, led by Rahul Sharma." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
