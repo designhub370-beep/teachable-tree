@@ -113,10 +113,24 @@ function Home() {
         </div>
       </section>
 
+      {/* Explore links */}
+      <section className="mx-auto grid max-w-6xl gap-4 px-4 pt-16 sm:grid-cols-3">
+        {[
+          { to: "/gallery" as const, t: "Explore Gallery", d: "Events ki photos aur aane wale events mein participate karein." },
+          { to: "/teachers" as const, t: "Hamare Teachers", d: "Qualification, subjects aur experience dekhiye." },
+          { to: "/admission" as const, t: "Admission Form", d: "Details bhariye, hum aapko call karenge." },
+        ].map((x) => (
+          <Link key={x.to} to={x.to} className="lift rounded-2xl border border-border bg-card p-6 shadow-soft">
+            <h3 className="text-xl font-bold text-primary">{x.t} →</h3>
+            <p className="mt-2 text-sm text-muted-foreground">{x.d}</p>
+          </Link>
+        ))}
+      </section>
+
       {/* Latest material */}
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="flex items-end justify-between gap-4">
-          <h2 className="text-3xl font-semibold">Latest Study Material</h2>
+          <h2 className="text-3xl font-semibold">Free Sample Papers & Notes</h2>
           <Link to="/materials" className="text-sm font-semibold text-primary">Sab dekhein →</Link>
         </div>
         {materials.length === 0 ? (
