@@ -9,7 +9,7 @@ function config() {
     password: process.env["SESSION_SECRET"]!,
     name: "aroma-staff",
     maxAge: 60 * 60 * 24 * 7,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+    cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
 }
 
