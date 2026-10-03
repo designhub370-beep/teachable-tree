@@ -14,9 +14,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Aroma Academy of Education — Class 9-12 & Govt Exam Coaching" },
-      { name: "description", content: "Rahul Sharma Sir ki Aroma Academy: Class 9-12 Maths, Science, Commerce, Arts aur SSC, CTET, UPTET, DSSSB, UPSC, Police coaching." },
+      { name: "description", content: "Aroma Academy, led by Rahul Sharma: Classes 9-12 in Maths, Science, Commerce and Arts, plus coaching for SSC, CTET, UPTET, DSSSB, UPSC and police exams." },
       { property: "og:title", content: "Aroma Academy of Education" },
-      { property: "og:description", content: "Class 9-12 aur competitive exams ki trusted coaching — Rahul Sharma Sir ke saath." },
+      { property: "og:description", content: "Trusted coaching for Classes 9-12 and competitive exams, taught by Rahul Sharma." },
     ],
   }),
   loader: ({ context }) =>
@@ -39,14 +39,14 @@ function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.1fr_1fr] lg:py-16">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold">
-              <span className="size-1.5 rounded-full bg-accent" /> Rahul Sharma Sir · Director
+              <span className="size-1.5 rounded-full bg-accent" /> Rahul Sharma · Director
             </span>
             <h1 className="mt-5 text-5xl font-extrabold leading-[0.95] sm:text-7xl">
               Aroma Academy <span className="block text-primary">of Education</span>
             </h1>
-            <p className="mt-3 text-xl font-semibold">Padhai jo result laaye.</p>
+            <p className="mt-3 text-xl font-semibold">Learning that brings results.</p>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Class 9–12 (Science, Commerce, Arts) aur SSC, CTET, UPTET, DSSSB, UPSC, Delhi & UP Police — sab ek hi jagah, concept se result tak.
+              Classes 9–12 (Science, Commerce, Arts) along with SSC, CTET, UPTET, DSSSB, UPSC and Delhi &amp; UP Police preparation — all under one roof, from concept to result.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a href={tel(PHONES[0])} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-lift hover:opacity-90">
@@ -94,7 +94,7 @@ function Home() {
         <FeeFinder classes={classes} />
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Special Offers</p>
-          <h2 className="mt-1 text-3xl font-semibold">Is session ke offers</h2>
+          <h2 className="mt-1 text-3xl font-semibold">This Session's Offers</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {featured.map((c) => <ClassCard key={c.id} c={c} />)}
           </div>
@@ -104,11 +104,11 @@ function Home() {
       {/* Programs */}
       <section className="ruled bg-paper py-16">
         <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-semibold sm:text-4xl">Hamare Programs</h2>
+          <h2 className="text-3xl font-semibold sm:text-4xl">Our Programs</h2>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
-            <Program title="Class 9 & 10" text="Maths aur Science — board-focused, weekly tests, doubt sessions." />
-            <Program title="Class 11 & 12" text="Science (PCM), Commerce (Accounts, Eco), Arts — har stream." />
-            <Program title="Competitive Exams" text="Teaching, SSC, UPSC aur Police exams ki complete tayari." chips={EXAMS} />
+            <Program title="Class 9 & 10" text="Maths and Science — board-focused teaching, weekly tests and doubt-clearing sessions." />
+            <Program title="Class 11 & 12" text="Science (PCM), Commerce (Accountancy, Economics) and Arts — every stream covered." />
+            <Program title="Competitive Exams" text="Complete preparation for teaching, SSC, UPSC and police exams." chips={EXAMS} />
           </div>
         </div>
       </section>
@@ -116,9 +116,9 @@ function Home() {
       {/* Explore links */}
       <section className="mx-auto grid max-w-6xl gap-4 px-4 pt-16 sm:grid-cols-3">
         {[
-          { to: "/gallery" as const, t: "Explore Gallery", d: "Events ki photos aur aane wale events mein participate karein." },
-          { to: "/teachers" as const, t: "Hamare Teachers", d: "Qualification, subjects aur experience dekhiye." },
-          { to: "/admission" as const, t: "Admission Form", d: "Details bhariye, hum aapko call karenge." },
+          { to: "/gallery" as const, t: "Explore Gallery", d: "Photos of the events we have held, and a chance to take part in the ones coming up." },
+          { to: "/teachers" as const, t: "Our Teachers", d: "See their qualifications, subjects and experience." },
+          { to: "/admission" as const, t: "Admission Form", d: "Fill in your details and we will call you back." },
         ].map((x) => (
           <Link key={x.to} to={x.to} className="lift rounded-2xl border border-border bg-card p-6 shadow-soft">
             <h3 className="text-xl font-bold text-primary">{x.t} →</h3>
@@ -131,11 +131,11 @@ function Home() {
       <section className="mx-auto max-w-6xl px-4 py-16">
         <div className="flex items-end justify-between gap-4">
           <h2 className="text-3xl font-semibold">Free Sample Papers & Notes</h2>
-          <Link to="/materials" className="text-sm font-semibold text-primary">Sab dekhein →</Link>
+          <Link to="/materials" className="text-sm font-semibold text-primary">View all →</Link>
         </div>
         {materials.length === 0 ? (
           <p className="mt-6 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">
-            Jaldi hi Rahul Sir yahan notes aur tests upload karenge.
+            Rahul Sharma will be uploading notes and sample tests here soon.
           </p>
         ) : (
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

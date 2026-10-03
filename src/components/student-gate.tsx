@@ -55,7 +55,7 @@ function SignupScreen() {
         : await supabase.auth.signInWithPassword({ email: f.email.trim(), password: f.password });
     setBusy(false);
     if (error) toast.error(error.message);
-    else toast.success(mode === "signup" ? "Swagat hai! Account ban gaya." : "Welcome back!");
+    else toast.success(mode === "signup" ? "Welcome! Your account is ready." : "Welcome back!");
   }
 
   const input = "w-full rounded-xl border border-input bg-background/60 px-4 py-3 text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
@@ -71,7 +71,7 @@ function SignupScreen() {
           Aroma Academy <span className="block text-primary">of Education</span>
         </h1>
         <p className="mt-5 max-w-lg text-lg text-muted-foreground">
-          Rahul Sharma Sir ke saath Class 9–12 (Science, Commerce, Arts) aur SSC, CTET, UPTET, DSSSB, UPSC, Police exams ki tayari.
+          Classes 9–12 (Science, Commerce, Arts) and preparation for SSC, CTET, UPTET, DSSSB, UPSC and police exams, taught by Rahul Sharma.
         </p>
         <div className="mt-6 grid max-w-lg grid-cols-2 gap-3 sm:grid-cols-4">
           {[
@@ -90,13 +90,13 @@ function SignupScreen() {
       </div>
 
       <form onSubmit={submit} className="rounded-3xl border border-border bg-card/90 p-6 shadow-lift backdrop-blur sm:p-8">
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">{mode === "signup" ? "Bilkul Free" : "Student Login"}</p>
-        <h2 className="mt-1 text-3xl font-bold">{mode === "signup" ? "Free signup karein" : "Sign in karein"}</h2>
-        <p className="mt-1 text-sm text-muted-foreground">Courses, fees aur study material dekhne ke liye.</p>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">{mode === "signup" ? "Completely Free" : "Student Login"}</p>
+        <h2 className="mt-1 text-3xl font-bold">{mode === "signup" ? "Create a free account" : "Sign in"}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">To view courses, fees and study material.</p>
         <div className="mt-6 space-y-3">
           {mode === "signup" && (
             <>
-              <input required maxLength={80} placeholder="Poora naam" value={f.name} onChange={set("name")} className={input} />
+              <input required maxLength={80} placeholder="Full name" value={f.name} onChange={set("name")} className={input} />
               <input required maxLength={15} inputMode="tel" placeholder="Phone number" value={f.phone} onChange={set("phone")} className={input} />
             </>
           )}
@@ -104,10 +104,10 @@ function SignupScreen() {
           <input required type="password" minLength={6} placeholder="Password (min 6)" value={f.password} onChange={set("password")} className={input} />
         </div>
         <button disabled={busy} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3.5 font-bold text-primary-foreground hover:opacity-90 disabled:opacity-60">
-          {busy && <span className="size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />} {mode === "signup" ? "Free Account Banayein" : "Sign In"}
+          {busy && <span className="size-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />} {mode === "signup" ? "Create Free Account" : "Sign In"}
         </button>
         <button type="button" onClick={() => setMode(mode === "signup" ? "login" : "signup")} className="mt-4 w-full text-sm text-muted-foreground hover:text-foreground">
-          {mode === "signup" ? "Pehle se account hai? Sign in" : "Naya student? Free signup"}
+          {mode === "signup" ? "Already have an account? Sign in" : "New student? Sign up free"}
         </button>
         <a href="/staff" className="mt-2 block text-center text-xs text-muted-foreground underline">Teacher / Head login</a>
       </form>

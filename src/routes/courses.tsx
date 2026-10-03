@@ -8,9 +8,9 @@ export const Route = createFileRoute("/courses")({
   head: () => ({
     meta: [
       { title: "Courses & Fees — Aroma Academy of Education" },
-      { name: "description", content: "Class 9-12, college aur competitive exam batches ki poori list aur fees." },
+      { name: "description", content: "The full list of Classes 9-12, college and competitive exam batches, with fees." },
       { property: "og:title", content: "Courses & Fees — Aroma Academy" },
-      { property: "og:description", content: "Har class aur exam batch ki fees aur offers." },
+      { property: "og:description", content: "Fees and offers for every class and exam batch." },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(classesQuery),
@@ -23,7 +23,7 @@ function Courses() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-4xl font-semibold sm:text-5xl">Courses & Fees</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">Sabhi classes aur batches ki latest fees. Offer price par kati hui price purani fee hai.</p>
+      <p className="mt-3 max-w-2xl text-muted-foreground">The latest fees for every class and batch. The struck-through figure beside an offer price is the original fee.</p>
       <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_360px]">
         <div className="space-y-12">
           {groups.map((g) => (
