@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
-import { LogOut, Phone } from "lucide-react";
-import logo from "@/assets/logo.png";
+import { ArrowLeft, LogOut, Phone } from "lucide-react";
+import logo from "@/assets/aroma-academy-logo.png";
 import { supabase } from "@/integrations/supabase/client";
 
 export const PHONES: [string, string] = ["+91 99583 01091", "+91 98107 77614"];
@@ -24,7 +24,7 @@ export function SiteHeader() {
       </div>
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-2.5">
-          <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 rounded-xl bg-foreground p-1" />
+          <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 object-contain" />
           <span className="leading-tight">
             <span className="block font-display text-lg font-semibold">Aroma Academy</span>
             <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
@@ -33,6 +33,9 @@ export function SiteHeader() {
           </span>
         </Link>
         <nav className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 sm:gap-x-5">
+          <button type="button" onClick={() => window.history.back()} aria-label="Go back" title="Go back" className="text-muted-foreground transition-colors hover:text-foreground">
+            <ArrowLeft className="size-4" />
+          </button>
           <Link to="/courses" className={linkCls} activeProps={active}>Courses</Link>
           <Link to="/materials" className={linkCls} activeProps={active}>Material</Link>
           <Link to="/gallery" className={linkCls} activeProps={active}>Gallery</Link>
@@ -97,7 +100,7 @@ export function PriceTag({
   size?: "md" | "lg";
 }) {
   const hasSale = original != null && original > sale;
-  const off = hasSale ? Math.round(((original! - sale) / original!) * 100) : 0;
+  const off = hasSale && original ? Math.round(((original - sale) / original) * 100) : 0;
   return (
     <div>
       {label && (
@@ -112,7 +115,7 @@ export function PriceTag({
         {hasSale && (
           <>
             <span className="text-sm text-muted-foreground line-through decoration-destructive decoration-2">
-              {inr(original!)}
+              {inr(original ?? 0)}
             </span>
             <span className="text-xs font-bold text-success">{off}% OFF</span>
           </>

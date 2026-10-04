@@ -45,7 +45,7 @@ export const listTeachers = createServerFn({ method: "GET" }).handler(async () =
   return rows.map((r) => ({ ...r, photo: urls[r.photo_path] ?? "", sections: (r.sections ?? []) as Section[] })) as TeacherRow[];
 });
 
-const phone = z.string().trim().regex(/^[0-9+\s-]{7,15}$/, "Sahi phone number daaliye");
+const phone = z.string().trim().regex(/^[0-9+\s-]{7,15}$/, "Please enter a valid phone number");
 
 export const registerForEvent = createServerFn({ method: "POST" })
   .inputValidator((d) => z.object({

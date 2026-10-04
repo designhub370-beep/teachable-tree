@@ -10,7 +10,7 @@ export function FeeFinder({ classes }: { classes: ClassRow[] }) {
   return (
     <div className="rounded-3xl border border-border bg-card p-5 shadow-soft sm:p-6">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Fee Finder</p>
-      <h3 className="mt-1 text-2xl font-semibold">Apni class chuniye, fee dekhiye</h3>
+      <h3 className="mt-1 text-2xl font-semibold">Select a class to view its fee</h3>
       <select
         value={id}
         onChange={(e) => setId(e.target.value)}
@@ -38,7 +38,7 @@ export function FeeFinder({ classes }: { classes: ClassRow[] }) {
         href={tel(PHONES[0])}
         className="mt-4 flex items-center justify-center gap-2 rounded-xl bg-primary py-3 font-semibold text-primary-foreground hover:opacity-90"
       >
-        <Phone className="size-4" /> Admission ke liye call karein
+        <Phone className="size-4" /> Call for admission
       </a>
     </div>
   );
