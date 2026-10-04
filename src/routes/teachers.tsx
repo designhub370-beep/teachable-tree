@@ -7,9 +7,11 @@ export const Route = createFileRoute("/teachers")({
   head: () => ({
     meta: [
       { title: "Our Teachers — Aroma Academy of Education" },
-      { name: "description", content: "Aroma Academy ke teachers, unki qualification aur subjects." },
+      { name: "description", content: "Meet Aroma Academy teachers and view their qualifications, subjects, and experience." },
       { property: "og:title", content: "Our Teachers — Aroma Academy" },
-      { property: "og:description", content: "Qualified teachers jo aapke bachchon ko padhate hain." },
+      { property: "og:description", content: "Qualified teachers guiding students at Aroma Academy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(teachersQuery),
@@ -21,10 +23,10 @@ function Teachers() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Faculty</p>
-      <h1 className="mt-1 text-4xl font-extrabold sm:text-5xl">Hamare Teachers</h1>
-      <p className="mt-3 text-muted-foreground">Qualification aur experience — jinke saath aapka bachcha padhega.</p>
+      <h1 className="mt-1 text-4xl font-extrabold sm:text-5xl">Our Teachers</h1>
+      <p className="mt-3 text-muted-foreground">Meet the qualified and experienced educators who guide our students.</p>
       {data.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">Teachers ki jaankari jaldi aayegi.</p>
+        <p className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">Teacher profiles will be added soon.</p>
       ) : (
         <div className="mt-10 grid gap-6 md:grid-cols-2">
           {data.map((t) => (

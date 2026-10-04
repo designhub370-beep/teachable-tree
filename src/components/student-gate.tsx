@@ -1,10 +1,10 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { useRouterState } from "@tanstack/react-router";
 import type { Session } from "@supabase/supabase-js";
-import { BookOpen, Calculator, FlaskConical, Trophy } from "lucide-react";
+import { ArrowLeft, BookOpen, Calculator, FlaskConical, Trophy } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/aroma-academy-logo.png";
 import hero from "@/assets/hero.jpg";
 import { LogoLoader } from "./logo-loader";
 import { SiteFooter, SiteHeader } from "./site-chrome";
@@ -12,8 +12,10 @@ import { SiteFooter, SiteHeader } from "./site-chrome";
 export function StudentGate({ children }: { children: ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const [session, setSession] = useState<Session | null | undefined>(undefined);
+  const [guest, setGuest] = useState(false);
 
   useEffect(() => {
+    setGuest(window.localStorage.getItem("aroma-guest-access") === "true");
     supabase.auth.getSession().then(({ data }) => setSession(data.session));
     const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => data.subscription.unsubscribe();
@@ -26,7 +28,10 @@ export function StudentGate({ children }: { children: ReactNode }) {
         <LogoLoader />
       </div>
     );
-  if (!session) return <SignupScreen />;
+  if (!session && !guest) return <SignupScreen onGuest={() => {
+    window.localStorage.setItem("aroma-guest-access", "true");
+    setGuest(true);
+  }} />;
   return (
     <>
       <SiteHeader />
@@ -36,7 +41,7 @@ export function StudentGate({ children }: { children: ReactNode }) {
   );
 }
 
-function SignupScreen() {
+function SignupScreen({ onGuest }: { onGuest: () => void }) {
   const [mode, setMode] = useState<"signup" | "login">("signup");
   const [f, setF] = useState({ name: "", phone: "", email: "", password: "" });
   const [busy, setBusy] = useState(false);
@@ -61,7 +66,10 @@ function SignupScreen() {
   const input = "w-full rounded-xl border border-input bg-background/60 px-4 py-3 text-base placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring";
 
   return (
-    <div className="mx-auto grid min-h-screen max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.15fr_1fr]">
+    <div className="relative mx-auto grid min-h-screen max-w-6xl items-center gap-10 overflow-hidden px-4 py-8 lg:grid-cols-[1.15fr_1fr] lg:py-10">
+      <button type="button" onClick={() => window.history.back()} className="absolute left-4 top-4 inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-foreground">
+        <ArrowLeft className="size-4" /> Back
+      </button>
       <div>
         <div className="flex items-center gap-4">
           <img src={logo} alt="Aroma Academy logo" width={88} height={88} className="size-20 rounded-2xl bg-foreground p-1.5 sm:size-24" />
@@ -108,6 +116,10 @@ function SignupScreen() {
         </button>
         <button type="button" onClick={() => setMode(mode === "signup" ? "login" : "signup")} className="mt-4 w-full text-sm text-muted-foreground hover:text-foreground">
           {mode === "signup" ? "Already have an account? Sign in" : "New student? Sign up free"}
+        </button>
+        <div className="my-4 flex items-center gap-3 text-xs uppercase text-muted-foreground before:h-px before:flex-1 before:bg-border after:h-px after:flex-1 after:bg-border">or</div>
+        <button type="button" onClick={onGuest} className="w-full rounded-xl border border-primary/50 bg-secondary py-3 font-bold text-foreground transition-colors hover:bg-muted">
+          Continue without signing up
         </button>
         <a href="/staff" className="mt-2 block text-center text-xs text-muted-foreground underline">Teacher / Head login</a>
       </form>

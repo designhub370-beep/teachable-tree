@@ -9,6 +9,14 @@ import { PHONES, tel } from "@/components/site-chrome";
 
 const EXAMS = ["SSC", "CTET", "UPTET", "DSSSB", "UP RET", "UPSC", "Delhi Police", "UP Police"];
 const SUBJECTS = ["Mathematics", "Science", "Physics", "Chemistry", "Economics", "Accountancy", "English"];
+const ADMISSION_COURSES = [
+  "BA", "MA", "B.COM", "M.COM", "B.SC", "M.SC", "BBA", "BCA", "MBA", "MCA", "B.LIB", "M.LIB", "PGDCA", "MSW",
+  "B.TECH", "M.TECH", "BA.LLB", "LLB", "LLM", "D.EL.ED", "B.Ed.", "M.Ed.", "BP.Ed", "MP.Ed.", "D.PHARMA", "B.PHARMA",
+  "ANM", "GNM", "B.SC Nursing", "PhD", "MBBS", "BDS", "BAMS", "BNYS", "Hotel Management", "CMS & ED", "BPT",
+  "ITI Courses — All Trades", "BMLT", "DMLT", "Polytechnic — All Trades", "Medical — All Degrees & Diplomas",
+  "Yoga — All Degrees & Diplomas", "Computer — All Degrees & Diplomas", "B.Voc — All Degrees & Diplomas",
+  "Fashion Designing — All Degrees & Diplomas", "N.T.T. & All Vocational Degrees & Diplomas",
+];
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -17,6 +25,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Aroma Academy, led by Rahul Sharma: Classes 9-12 in Maths, Science, Commerce and Arts, plus coaching for SSC, CTET, UPTET, DSSSB, UPSC and police exams." },
       { property: "og:title", content: "Aroma Academy of Education" },
       { property: "og:description", content: "Trusted coaching for Classes 9-12 and competitive exams, taught by Rahul Sharma." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) =>
@@ -79,6 +89,30 @@ function Home() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      <section className="admissions-showcase overflow-hidden border-y border-primary/30 bg-ink-gradient py-12 sm:py-16">
+        <div className="mx-auto max-w-6xl px-4 text-center">
+          <p className="admissions-pulse text-sm font-bold uppercase tracking-[0.28em] text-accent">Academic Session 2026–27</p>
+          <h2 className="mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admissions Open</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admissions guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
+        </div>
+        <div className="mt-9 space-y-3" aria-label="Available admission courses">
+          {[ADMISSION_COURSES.filter((_, i) => i % 2 === 0), ADMISSION_COURSES.filter((_, i) => i % 2 === 1)].map((row, index) => (
+            <div key={index} className={`course-marquee ${index === 1 ? "course-marquee-reverse" : ""}`}>
+              {[...row, ...row].map((course, i) => (
+                <span key={`${course}-${i}`} className="inline-flex shrink-0 items-center gap-3 px-3 font-display text-lg font-bold text-ink-foreground sm:text-xl">
+                  <span className="size-1.5 rounded-full bg-primary" /> {course}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="mx-auto mt-8 flex max-w-6xl justify-center px-4">
+          <Link to="/admission" className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-primary-foreground shadow-lift transition-transform hover:scale-105">
+            Apply for Admission <ArrowRight className="size-4" />
+          </Link>
         </div>
       </section>
 

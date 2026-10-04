@@ -5,7 +5,7 @@ import { Loader2, LogOut, Pencil, Plus, Trash2, Upload } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { LogoLoader } from "@/components/logo-loader";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/aroma-academy-logo.png";
 import {
   addMaterial, createUploadUrl, deleteClass, deleteMaterial, saveClass, staffLogin, staffLogout,
   type ClassRow,
@@ -18,9 +18,11 @@ export const Route = createFileRoute("/staff")({
   head: () => ({
     meta: [
       { title: "Staff Login — Aroma Academy of Education" },
-      { name: "description", content: "Teacher aur Head ke liye material upload aur fees management." },
+      { name: "description", content: "Secure material uploads, course management, and fee controls for teachers and the Head." },
       { property: "og:title", content: "Staff Login — Aroma Academy" },
-      { property: "og:description", content: "Teacher aur Head dashboard." },
+      { property: "og:description", content: "Secure Teacher and Head dashboard for Aroma Academy." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "robots", content: "noindex" },
     ],
   }),
@@ -38,7 +40,7 @@ function Staff() {
     <div className="mx-auto max-w-6xl px-4 py-8">
       <div className="flex items-center justify-between gap-3">
         <Link to="/" className="flex items-center gap-3">
-          <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 rounded-xl bg-foreground p-1" />
+          <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 object-contain" />
           <span className="font-display text-lg font-bold">Aroma Academy <span className="text-primary">Staff</span></span>
         </Link>
         {role && (
@@ -81,8 +83,8 @@ function LoginForm() {
         setBusy(true);
         const r = await staffLogin({ data: { role, password: pw } });
         setBusy(false);
-        if (!r.ok) { toast.error("Galat password"); return; }
-        toast.success("Login ho gaya");
+        if (!r.ok) { toast.error("Incorrect password"); return; }
+        toast.success("Login successful");
         qc.invalidateQueries({ queryKey: ["role"] });
       }}
     >
@@ -114,14 +116,14 @@ function UploadPanel() {
       className={card}
       onSubmit={async (e) => {
         e.preventDefault();
-        if (!file) { toast.error("File chuniye"); return; }
+        if (!file) { toast.error("Please choose a file"); return; }
         setBusy(true);
         try {
           const { path, token } = await createUploadUrl({ data: { filename: file.name } });
           const { error } = await supabase.storage.from("materials").uploadToSignedUrl(path, token, file);
           if (error) throw error;
           await addMaterial({ data: { ...f, file_path: path } });
-          toast.success("Upload ho gaya! Students ko dikh raha hai.");
+          toast.success("Uploaded successfully. Students can now view it.");
           setF({ ...f, title: "", description: "" });
           setFile(null);
           (e.target as HTMLFormElement).reset();
@@ -132,14 +134,14 @@ function UploadPanel() {
         setBusy(false);
       }}
     >
-      <h2 className="flex items-center gap-2 text-xl font-bold"><Upload className="size-5 text-primary" /> PDF / Image / Test upload karein</h2>
+      <h2 className="flex items-center gap-2 text-xl font-bold"><Upload className="size-5 text-primary" /> Upload a PDF, image, or test</h2>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
-        <input required maxLength={200} placeholder="Title (jaise: Ch-1 Real Numbers Notes)" value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} className={input} />
+        <input required maxLength={200} placeholder="Title (for example: Chapter 1 Real Numbers Notes)" value={f.title} onChange={(e) => setF({ ...f, title: e.target.value })} className={input} />
         <select value={f.kind} onChange={(e) => setF({ ...f, kind: e.target.value as typeof f.kind })} className={input}>
           <option value="pdf">PDF</option><option value="image">Image</option><option value="test">Test / Sample paper</option><option value="notes">Notes</option>
         </select>
         <select value={f.class_name} onChange={(e) => setF({ ...f, class_name: e.target.value })} className={input}>
-          <option value="">Sabhi classes</option>
+          <option value="">All classes</option>
           {classes.map((c) => <option key={c.id} value={c.name}>{c.name}</option>)}
         </select>
         <input maxLength={100} placeholder="Subject" value={f.subject} onChange={(e) => setF({ ...f, subject: e.target.value })} className={input} />
@@ -165,7 +167,7 @@ function ClassesPanel() {
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-bold">Classes, Courses & Fees</h2>
         <button onClick={() => setEdit({ ...empty })} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground">
-          <Plus className="size-4" /> Nayi class / college
+          <Plus className="size-4" /> Add class or college course
         </button>
       </div>
       {edit && (
@@ -175,21 +177,21 @@ function ClassesPanel() {
             e.preventDefault();
             try {
               await saveClass({ data: { ...edit, sale_price: edit.sale_price ?? 0 } });
-              toast.success("Save ho gaya");
+              toast.success("Saved successfully");
               setEdit(null);
               qc.invalidateQueries({ queryKey: ["classes"] });
             } catch (err) { toast.error((err as Error).message); }
           }}
         >
-          <label className="text-xs text-muted-foreground">Class / Course naam<input required className={input} value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></label>
-          <label className="text-xs text-muted-foreground">Category (School, College, Govt Exam...)<input required className={input} value={edit.category} onChange={(e) => setEdit({ ...edit, category: e.target.value })} /></label>
+          <label className="text-xs text-muted-foreground">Class or course name<input required className={input} value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></label>
+          <label className="text-xs text-muted-foreground">Category (School, College, Government Exam, etc.)<input required className={input} value={edit.category} onChange={(e) => setEdit({ ...edit, category: e.target.value })} /></label>
           <label className="text-xs text-muted-foreground sm:col-span-2">Subjects<input className={input} value={edit.subjects} onChange={(e) => setEdit({ ...edit, subjects: e.target.value })} /></label>
-          <label className="text-xs text-muted-foreground">Sale ka naam (jaise: Diwali Sale)<input className={input} value={edit.sale_label} onChange={(e) => setEdit({ ...edit, sale_label: e.target.value })} /></label>
+          <label className="text-xs text-muted-foreground">Offer name (for example: Diwali Offer)<input className={input} value={edit.sale_label} onChange={(e) => setEdit({ ...edit, sale_label: e.target.value })} /></label>
           <label className="text-xs text-muted-foreground">Duration<input className={input} value={edit.duration} onChange={(e) => setEdit({ ...edit, duration: e.target.value })} /></label>
-          <label className="text-xs text-muted-foreground">Purani price ₹ (kati hui dikhegi)<input type="number" min={0} className={input} value={edit.original_price ?? ""} onChange={(e) => setEdit({ ...edit, original_price: num(e.target.value) })} /></label>
+          <label className="text-xs text-muted-foreground">Original fee ₹ (shown with a strikethrough)<input type="number" min={0} className={input} value={edit.original_price ?? ""} onChange={(e) => setEdit({ ...edit, original_price: num(e.target.value) })} /></label>
           <label className="text-xs text-muted-foreground">Sale price ₹<input required type="number" min={0} className={input} value={edit.sale_price} onChange={(e) => setEdit({ ...edit, sale_price: num(e.target.value) ?? 0 })} /></label>
           <label className="text-xs text-muted-foreground sm:col-span-2">Description<input className={input} value={edit.description} onChange={(e) => setEdit({ ...edit, description: e.target.value })} /></label>
-          <label className="text-xs text-muted-foreground">Order (chhota pehle)<input type="number" min={0} className={input} value={edit.sort_order} onChange={(e) => setEdit({ ...edit, sort_order: num(e.target.value) ?? 0 })} /></label>
+          <label className="text-xs text-muted-foreground">Display order (lower numbers appear first)<input type="number" min={0} className={input} value={edit.sort_order} onChange={(e) => setEdit({ ...edit, sort_order: num(e.target.value) ?? 0 })} /></label>
           <div className="flex items-end gap-2">
             <button className="rounded-xl bg-primary px-5 py-2.5 font-bold text-primary-foreground">Save</button>
             <button type="button" onClick={() => setEdit(null)} className="rounded-xl border border-border px-4 py-2.5">Cancel</button>
@@ -210,7 +212,7 @@ function ClassesPanel() {
             <div className="flex shrink-0 gap-1">
               <button aria-label="Edit" onClick={() => setEdit(c)} className="rounded-lg border border-border p-2"><Pencil className="size-4" /></button>
               <button aria-label="Delete" onClick={async () => {
-                if (!confirm(`"${c.name}" delete karein?`)) return;
+                if (!confirm(`Delete “${c.name}”?`)) return;
                 await deleteClass({ data: { id: c.id } });
                 qc.invalidateQueries({ queryKey: ["classes"] });
               }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>
@@ -228,7 +230,7 @@ function MaterialsPanel() {
   return (
     <div className={card}>
       <h2 className="text-xl font-bold">Uploaded material ({mats.length})</h2>
-      {mats.length === 0 && <p className="mt-3 text-sm text-muted-foreground">Abhi kuch upload nahi hua.</p>}
+      {mats.length === 0 && <p className="mt-3 text-sm text-muted-foreground">Nothing has been uploaded yet.</p>}
       <div className="mt-3 divide-y divide-border">
         {mats.map((m) => (
           <div key={m.id} className="flex items-center justify-between gap-3 py-3">
@@ -237,7 +239,7 @@ function MaterialsPanel() {
               <p className="text-xs text-muted-foreground">{[m.kind.toUpperCase(), m.class_name, m.subject].filter(Boolean).join(" · ")}</p>
             </a>
             <button aria-label="Delete" onClick={async () => {
-              if (!confirm("Delete karein?")) return;
+              if (!confirm("Delete this material?")) return;
               await deleteMaterial({ data: { id: m.id } });
               qc.invalidateQueries({ queryKey: ["materials"] });
             }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>

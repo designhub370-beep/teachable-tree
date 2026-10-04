@@ -15,9 +15,11 @@ export const Route = createFileRoute("/materials")({
   head: () => ({
     meta: [
       { title: "Study Material — Aroma Academy of Education" },
-      { name: "description", content: "Rahul Sir dwara upload kiye gaye PDFs, notes, images aur test papers." },
+      { name: "description", content: "PDFs, notes, images, and test papers uploaded by Rahul Sir for Aroma Academy students." },
       { property: "og:title", content: "Study Material — Aroma Academy" },
-      { property: "og:description", content: "Notes, PDFs aur sample tests — students ke liye." },
+      { property: "og:description", content: "Notes, PDFs, and sample tests for Aroma Academy students." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(materialsQuery),
@@ -44,15 +46,15 @@ function Materials() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <h1 className="text-4xl font-semibold sm:text-5xl">Study Material</h1>
-      <p className="mt-3 text-muted-foreground">Notes, PDFs, images aur sample tests — seedha Rahul Sir ki taraf se.</p>
+      <p className="mt-3 text-muted-foreground">Notes, PDFs, images, and sample tests shared directly by Rahul Sir.</p>
 
       <div className="mt-8 flex flex-col gap-3 sm:flex-row">
         <label className="flex flex-1 items-center gap-2 rounded-xl border border-input bg-card px-3">
           <Search className="size-4 text-muted-foreground" />
-          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search title ya subject…" className="w-full bg-transparent py-3 outline-none" />
+          <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search by title or subject…" className="w-full bg-transparent py-3 outline-none" />
         </label>
         <select value={cls} onChange={(e) => setCls(e.target.value)} className="rounded-xl border border-input bg-card px-3 py-3">
-          <option value="all">Sabhi classes</option>
+          <option value="all">All classes</option>
           {classes.map((c) => <option key={c}>{c}</option>)}
         </select>
       </div>
@@ -69,7 +71,7 @@ function Materials() {
       </div>
 
       {list.length === 0 ? (
-        <p className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">Abhi koi material nahi mila.</p>
+        <p className="mt-10 rounded-2xl border border-dashed border-border p-10 text-center text-muted-foreground">No study material was found.</p>
       ) : (
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {list.map((m) => {

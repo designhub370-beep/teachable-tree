@@ -21,8 +21,8 @@ export function InboxPanel() {
   const fresh = adm.filter((a) => !a.contacted).length;
   return (
     <div className={`${card} border-primary/50`}>
-      <h2 className="text-xl font-bold">Naye Admission {fresh > 0 && <span className="ml-2 rounded-full bg-destructive px-2 py-0.5 text-xs text-destructive-foreground">{fresh} naye</span>}</h2>
-      {adm.length === 0 && <p className="mt-2 text-sm text-muted-foreground">Abhi koi form nahi aaya.</p>}
+      <h2 className="text-xl font-bold">New Admission Enquiries {fresh > 0 && <span className="ml-2 rounded-full bg-destructive px-2 py-0.5 text-xs text-destructive-foreground">{fresh} new</span>}</h2>
+      {adm.length === 0 && <p className="mt-2 text-sm text-muted-foreground">No admission enquiries have arrived yet.</p>}
       <div className="mt-3 divide-y divide-border">
         {adm.map((a) => (
           <div key={a.id} className={`flex flex-wrap items-center justify-between gap-3 py-3 ${a.contacted ? "opacity-50" : ""}`}>
@@ -34,7 +34,7 @@ export function InboxPanel() {
             <div className="flex gap-2">
               <a href={tel(a.phone)} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground"><Phone className="size-4" /> {a.phone}</a>
               <button onClick={async () => { await markContacted({ data: { id: a.id, contacted: !a.contacted } }); qc.invalidateQueries({ queryKey: ["inbox"] }); }} className="rounded-xl border border-border px-3 py-2 text-sm">
-                {a.contacted ? "Undo" : "Baat ho gayi ✓"}
+                {a.contacted ? "Mark as pending" : "Mark as contacted ✓"}
               </button>
             </div>
           </div>
@@ -70,7 +70,7 @@ export function EventsPanel() {
     <div className={card}>
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-bold">Explore Gallery / Events</h2>
-        <button onClick={() => setEdit({ ...emptyEv })} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground"><Plus className="size-4" /> Naya event</button>
+        <button onClick={() => setEdit({ ...emptyEv })} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground"><Plus className="size-4" /> Add event</button>
       </div>
       {edit && (
         <form
@@ -82,30 +82,30 @@ export function EventsPanel() {
               const files = (e.currentTarget.elements.namedItem("photos") as HTMLInputElement).files;
               const newPaths = files ? await Promise.all(Array.from(files).map(uploadFile)) : [];
               await saveEvent({ data: { ...edit, photo_paths: [...edit.photo_paths, ...newPaths] } });
-              toast.success("Event save ho gaya — website par dikh raha hai");
+              toast.success("Event saved and published on the website");
               setEdit(null);
               qc.invalidateQueries({ queryKey: ["events"] });
             } catch (err) { toast.error((err as Error).message); }
             setBusy(false);
           }}
         >
-          <label className={`${lbl} sm:col-span-2`}>Event ka naam<input required className={input} value={edit.title} onChange={(e) => setEdit({ ...edit, title: e.target.value })} /></label>
+          <label className={`${lbl} sm:col-span-2`}>Event name<input required className={input} value={edit.title} onChange={(e) => setEdit({ ...edit, title: e.target.value })} /></label>
           <label className={lbl}>Date<input type="date" className={input} value={edit.event_date ?? ""} onChange={(e) => setEdit({ ...edit, event_date: e.target.value })} /></label>
           <label className={lbl}>Status
             <select className={input} value={edit.status} onChange={(e) => setEdit({ ...edit, status: e.target.value as EvForm["status"] })}>
-              <option value="upcoming">Aane wala (participate form ke saath)</option><option value="past">Ho chuka (sirf photos)</option>
+              <option value="upcoming">Upcoming (with registration form)</option><option value="past">Past (photographs only)</option>
             </select>
           </label>
-          <label className={lbl}>Kaunsi class se kaunsi class tak<input placeholder="jaise: 6 se 10" className={input} value={edit.class_range} onChange={(e) => setEdit({ ...edit, class_range: e.target.value })} /></label>
-          <label className={lbl}>Age kitni honi chahiye<input placeholder="jaise: 12-16 saal" className={input} value={edit.age_rule} onChange={(e) => setEdit({ ...edit, age_rule: e.target.value })} /></label>
+          <label className={lbl}>Eligible class range<input placeholder="For example: Classes 6 to 10" className={input} value={edit.class_range} onChange={(e) => setEdit({ ...edit, class_range: e.target.value })} /></label>
+          <label className={lbl}>Age requirement<input placeholder="For example: 12–16 years" className={input} value={edit.age_rule} onChange={(e) => setEdit({ ...edit, age_rule: e.target.value })} /></label>
           <label className={`${lbl} sm:col-span-2`}>Description<textarea rows={2} className={input} value={edit.description} onChange={(e) => setEdit({ ...edit, description: e.target.value })} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Rules (har line ek rule)<textarea rows={3} className={input} value={edit.rules} onChange={(e) => setEdit({ ...edit, rules: e.target.value })} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Photos jodein (ek saath kai chun sakte hain)<input name="photos" type="file" multiple accept="image/*" className={input} /></label>
+          <label className={`${lbl} sm:col-span-2`}>Rules (enter one rule per line)<textarea rows={3} className={input} value={edit.rules} onChange={(e) => setEdit({ ...edit, rules: e.target.value })} /></label>
+          <label className={`${lbl} sm:col-span-2`}>Add photographs (multiple files allowed)<input name="photos" type="file" multiple accept="image/*" className={input} /></label>
           {edit.photo_paths.length > 0 && (
-            <p className="text-xs text-muted-foreground sm:col-span-2">{edit.photo_paths.length} photo pehle se hain. <button type="button" className="underline" onClick={() => setEdit({ ...edit, photo_paths: [] })}>Sab hatayein</button></p>
+            <p className="text-xs text-muted-foreground sm:col-span-2">{edit.photo_paths.length} photographs are already attached. <button type="button" className="underline" onClick={() => setEdit({ ...edit, photo_paths: [] })}>Remove all</button></p>
           )}
           <div className="flex gap-2 sm:col-span-2">
-            <button disabled={busy} className={btn}>{busy ? "Upload ho raha hai..." : "Save"}</button>
+            <button disabled={busy} className={btn}>{busy ? "Uploading..." : "Save"}</button>
             <button type="button" onClick={() => setEdit(null)} className="rounded-xl border border-border px-4 py-2.5">Cancel</button>
           </div>
         </form>
@@ -117,12 +117,12 @@ export function EventsPanel() {
               {ev.photos[0] && <img src={ev.photos[0]} alt="" className="size-12 rounded-lg object-cover" />}
               <div className="min-w-0">
                 <p className="truncate font-semibold">{ev.title}</p>
-                <p className="text-xs text-muted-foreground">{ev.status === "upcoming" ? "Aane wala" : "Ho chuka"} · {ev.event_date ?? "—"} · {ev.photos.length} photos</p>
+                <p className="text-xs text-muted-foreground">{ev.status === "upcoming" ? "Upcoming" : "Past"} · {ev.event_date ?? "—"} · {ev.photos.length} photos</p>
               </div>
             </div>
             <div className="flex shrink-0 gap-1">
               <button aria-label="Edit" onClick={() => setEdit({ id: ev.id, title: ev.title, event_date: ev.event_date, status: ev.status as EvForm["status"], description: ev.description, class_range: ev.class_range, age_rule: ev.age_rule, rules: ev.rules, photo_paths: ev.photo_paths })} className="rounded-lg border border-border p-2"><Pencil className="size-4" /></button>
-              <button aria-label="Delete" onClick={async () => { if (!confirm("Event delete karein?")) return; await deleteEvent({ data: { id: ev.id } }); qc.invalidateQueries({ queryKey: ["events"] }); }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>
+              <button aria-label="Delete" onClick={async () => { if (!confirm("Delete this event?")) return; await deleteEvent({ data: { id: ev.id } }); qc.invalidateQueries({ queryKey: ["events"] }); }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>
             </div>
           </div>
         ))}
@@ -145,7 +145,7 @@ export function TeachersPanel() {
     <div className={card}>
       <div className="flex items-center justify-between gap-3">
         <h2 className="text-xl font-bold">Teachers & Qualification</h2>
-        <button onClick={() => setEdit({ ...emptyT })} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground"><Plus className="size-4" /> Naya teacher</button>
+        <button onClick={() => setEdit({ ...emptyT })} className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-3 py-2 text-sm font-bold text-accent-foreground"><Plus className="size-4" /> Add teacher</button>
       </div>
       {edit && (
         <form
@@ -157,24 +157,24 @@ export function TeachersPanel() {
               const file = (e.currentTarget.elements.namedItem("photo") as HTMLInputElement).files?.[0];
               const photo_path = file ? await uploadFile(file) : edit.photo_path;
               await saveTeacher({ data: { ...edit, photo_path } });
-              toast.success("Teacher save ho gaya");
+              toast.success("Teacher profile saved");
               setEdit(null);
               qc.invalidateQueries({ queryKey: ["teachers"] });
             } catch (err) { toast.error((err as Error).message); }
             setBusy(false);
           }}
         >
-          <label className={lbl}>Naam<input required className={input} value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></label>
-          <label className={lbl}>Kya padhate hain<input placeholder="Maths, Physics" className={input} value={edit.subjects} onChange={(e) => setEdit({ ...edit, subjects: e.target.value })} /></label>
-          <label className={`${lbl} sm:col-span-2`}>Qualification (har line ek)<textarea rows={3} placeholder={"M.Sc Mathematics\nB.Ed"} className={input} value={edit.qualification} onChange={(e) => setEdit({ ...edit, qualification: e.target.value })} /></label>
+          <label className={lbl}>Name<input required className={input} value={edit.name} onChange={(e) => setEdit({ ...edit, name: e.target.value })} /></label>
+          <label className={lbl}>Subjects taught<input placeholder="Mathematics, Physics" className={input} value={edit.subjects} onChange={(e) => setEdit({ ...edit, subjects: e.target.value })} /></label>
+          <label className={`${lbl} sm:col-span-2`}>Qualifications (enter one per line)<textarea rows={3} placeholder={"M.Sc Mathematics\nB.Ed"} className={input} value={edit.qualification} onChange={(e) => setEdit({ ...edit, qualification: e.target.value })} /></label>
           <label className={lbl}>Photo<input name="photo" type="file" accept="image/*" className={input} /></label>
-          <label className={lbl}>Order (chhota pehle)<input type="number" min={0} className={input} value={edit.sort_order} onChange={(e) => setEdit({ ...edit, sort_order: Number(e.target.value) || 0 })} /></label>
+          <label className={lbl}>Display order (lower numbers appear first)<input type="number" min={0} className={input} value={edit.sort_order} onChange={(e) => setEdit({ ...edit, sort_order: Number(e.target.value) || 0 })} /></label>
 
           <div className="space-y-3 sm:col-span-2">
             {edit.sections.map((s, i) => (
               <div key={i} className="rounded-xl border border-border p-3">
                 <div className="flex gap-2">
-                  <input placeholder="Heading (jaise: Experience)" className={input} value={s.heading} onChange={(e) => setSec(i, { ...s, heading: e.target.value })} />
+                  <input placeholder="Heading (for example: Experience)" className={input} value={s.heading} onChange={(e) => setSec(i, { ...s, heading: e.target.value })} />
                   <button type="button" aria-label="Remove heading" onClick={() => setEdit({ ...edit, sections: edit.sections.filter((_, j) => j !== i) })}><X className="size-4" /></button>
                 </div>
                 {s.lines.map((l, k) => (
@@ -186,10 +186,10 @@ export function TeachersPanel() {
                 <button type="button" onClick={() => setSec(i, { ...s, lines: [...s.lines, ""] })} className="mt-2 text-sm font-semibold text-primary">+ Add line</button>
               </div>
             ))}
-            <button type="button" onClick={() => setEdit({ ...edit, sections: [...edit.sections, { heading: "", lines: [""] }] })} className="rounded-xl border border-dashed border-border px-3 py-2 text-sm font-semibold">+ Heading jodein</button>
+            <button type="button" onClick={() => setEdit({ ...edit, sections: [...edit.sections, { heading: "", lines: [""] }] })} className="rounded-xl border border-dashed border-border px-3 py-2 text-sm font-semibold">+ Add heading</button>
           </div>
           <div className="flex gap-2 sm:col-span-2">
-            <button disabled={busy} className={btn}>{busy ? "Save ho raha hai..." : "Save"}</button>
+            <button disabled={busy} className={btn}>{busy ? "Saving..." : "Save"}</button>
             <button type="button" onClick={() => setEdit(null)} className="rounded-xl border border-border px-4 py-2.5">Cancel</button>
           </div>
         </form>
@@ -203,7 +203,7 @@ export function TeachersPanel() {
             </div>
             <div className="flex shrink-0 gap-1">
               <button aria-label="Edit" onClick={() => setEdit({ id: t.id, name: t.name, photo_path: t.photo_path, qualification: t.qualification, subjects: t.subjects, sort_order: t.sort_order, sections: t.sections })} className="rounded-lg border border-border p-2"><Pencil className="size-4" /></button>
-              <button aria-label="Delete" onClick={async () => { if (!confirm("Teacher hatayein?")) return; await deleteTeacher({ data: { id: t.id } }); qc.invalidateQueries({ queryKey: ["teachers"] }); }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>
+              <button aria-label="Delete" onClick={async () => { if (!confirm("Remove this teacher?")) return; await deleteTeacher({ data: { id: t.id } }); qc.invalidateQueries({ queryKey: ["teachers"] }); }} className="rounded-lg border border-border p-2 text-destructive"><Trash2 className="size-4" /></button>
             </div>
           </div>
         ))}

@@ -10,16 +10,18 @@ export const Route = createFileRoute("/gallery")({
   head: () => ({
     meta: [
       { title: "Explore Gallery & Events — Aroma Academy of Education" },
-      { name: "description", content: "Rahul Sir ke events ki photos, dates aur aane wale events mein participate karein." },
+      { name: "description", content: "View Aroma Academy event photos and dates, and register for upcoming events." },
       { property: "og:title", content: "Explore Gallery — Aroma Academy" },
-      { property: "og:description", content: "Past events ki photos aur upcoming events ka registration." },
+      { property: "og:description", content: "Past event photos and registration for upcoming Aroma Academy events." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(eventsQuery),
   component: Gallery,
 });
 
-const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }) : "Date jaldi");
+const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString("en-IN", { day: "numeric", month: "long", year: "numeric" }) : "Date to be announced");
 
 function Gallery() {
   const { data } = useSuspenseQuery(eventsQuery);
@@ -31,12 +33,12 @@ function Gallery() {
   return (
     <div className="mx-auto max-w-6xl px-4 py-12">
       <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Explore Gallery</p>
-      <h1 className="mt-1 text-4xl font-extrabold sm:text-5xl">Events & Yaadein</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">Rahul Sir ke saath hue events ki photos, aur aane wale events mein participate karne ka mauka.</p>
+      <h1 className="mt-1 text-4xl font-extrabold sm:text-5xl">Events & Memories</h1>
+      <p className="mt-3 max-w-2xl text-muted-foreground">Explore photographs from previous events with Rahul Sir and register for upcoming activities.</p>
 
-      <h2 className="mt-12 text-2xl font-bold">Aane wale events</h2>
+      <h2 className="mt-12 text-2xl font-bold">Upcoming Events</h2>
       {upcoming.length === 0 ? (
-        <p className="mt-4 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">Jaldi hi naye events announce honge.</p>
+        <p className="mt-4 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">New events will be announced soon.</p>
       ) : (
         <div className="mt-5 grid gap-5 md:grid-cols-2">
           {upcoming.map((e) => (
@@ -57,16 +59,16 @@ function Gallery() {
                     <ul className="mt-1 list-disc pl-5 text-muted-foreground">{e.rules.split("\n").filter(Boolean).map((r, i) => <li key={i}>{r}</li>)}</ul>
                   </div>
                 )}
-                <button onClick={() => setJoin(e)} className="mt-4 w-full rounded-xl bg-primary py-3 font-bold text-primary-foreground hover:opacity-90">Participate karein</button>
+                <button onClick={() => setJoin(e)} className="mt-4 w-full rounded-xl bg-primary py-3 font-bold text-primary-foreground hover:opacity-90">Register to Participate</button>
               </div>
             </article>
           ))}
         </div>
       )}
 
-      <h2 className="mt-14 text-2xl font-bold">Ho chuke events</h2>
+      <h2 className="mt-14 text-2xl font-bold">Past Events</h2>
       {past.length === 0 ? (
-        <p className="mt-4 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">Photos jaldi aayengi.</p>
+        <p className="mt-4 rounded-2xl border border-dashed border-border p-8 text-center text-muted-foreground">Event photographs will be added soon.</p>
       ) : (
         <div className="mt-5 space-y-10">
           {past.map((e) => (
@@ -111,23 +113,23 @@ function JoinDialog({ e, onClose }: { e: EventRow; onClose: () => void }) {
           setBusy(true);
           try {
             await registerForEvent({ data: { event_id: e.id, student_name: f.student_name, class_name: f.class_name, phone: f.phone, age: f.age ? Number(f.age) : null } });
-            toast.success("Registration ho gaya! Hum aapko call karenge.");
+            toast.success("Registration received. We will call you soon.");
             onClose();
           } catch (err) { toast.error((err as Error).message); }
           setBusy(false);
         }}
       >
         <div className="flex items-start justify-between gap-3">
-          <div><p className="text-xs text-muted-foreground">Participate</p><h3 className="text-xl font-bold">{e.title}</h3></div>
+          <div><p className="text-xs text-muted-foreground">Event Registration</p><h3 className="text-xl font-bold">{e.title}</h3></div>
           <button type="button" onClick={onClose} aria-label="Close"><X className="size-5" /></button>
         </div>
         <div className="mt-4 space-y-3">
-          <input required maxLength={100} placeholder="Student ka naam" className={input} value={f.student_name} onChange={(x) => setF({ ...f, student_name: x.target.value })} />
+          <input required maxLength={100} placeholder="Student name" className={input} value={f.student_name} onChange={(x) => setF({ ...f, student_name: x.target.value })} />
           <input required maxLength={50} placeholder={`Class ${e.class_range ? `(${e.class_range})` : ""}`} className={input} value={f.class_name} onChange={(x) => setF({ ...f, class_name: x.target.value })} />
           <input type="number" min={3} max={99} placeholder={`Age ${e.age_rule ? `(${e.age_rule})` : ""}`} className={input} value={f.age} onChange={(x) => setF({ ...f, age: x.target.value })} />
           <input required inputMode="tel" maxLength={15} placeholder="Phone number" className={input} value={f.phone} onChange={(x) => setF({ ...f, phone: x.target.value })} />
         </div>
-        <button disabled={busy} className="mt-5 w-full rounded-xl bg-primary py-3 font-bold text-primary-foreground disabled:opacity-60">{busy ? "Bhej rahe hain..." : "Submit"}</button>
+        <button disabled={busy} className="mt-5 w-full rounded-xl bg-primary py-3 font-bold text-primary-foreground disabled:opacity-60">{busy ? "Submitting..." : "Submit Registration"}</button>
       </form>
     </div>
   );

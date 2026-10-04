@@ -1,8 +1,7 @@
 # Aroma Academy of Education
-- [ ] Enable Cloud, DB tables (classes, subjects, materials), storage bucket
-- [ ] Password gate: teacher (teacher@56), head (Rahulsharma@32)
-- [ ] Home page: classes/courses, fee calculator (select class -> sale title, struck original price, sale price)
-- [ ] Students material page (PDF/images/tests)
-- [ ] Teacher dashboard: upload PDF/images/tests
-- [ ] Head dashboard: add/edit/delete classes (incl. college etc.), fees + sale label/price, subjects, materials
-- [ ] Education-style advanced design
+- [x] Cloud data, secure uploads, staff access, course and fee management
+- [x] Student materials, events, teacher profiles, and admission enquiries
+- [ ] Complete English interface and metadata
+- [ ] Guest access, back navigation, and supplied PNG logo
+- [ ] Animated admissions course showcase
+- [ ] Verify desktop and mobile experiences
