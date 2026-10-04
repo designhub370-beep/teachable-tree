@@ -11,6 +11,8 @@ export const Route = createFileRoute("/courses")({
       { name: "description", content: "The full list of Classes 9-12, college and competitive exam batches, with fees." },
       { property: "og:title", content: "Courses & Fees — Aroma Academy" },
       { property: "og:description", content: "Fees and offers for every class and exam batch." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   loader: ({ context }) => context.queryClient.ensureQueryData(classesQuery),
