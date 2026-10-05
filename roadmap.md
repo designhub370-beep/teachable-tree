@@ -4,5 +4,5 @@
 - [x] Complete English interface and metadata
 - [x] Guest access, back navigation, and supplied PNG logo
 - [x] Animated admissions course showcase
-- [ ] Apply kinetic academic animation system and verify motion
-- [ ] Verify desktop and mobile experiences
+- [x] Apply kinetic academic animation system and verify motion
+- [x] Verify desktop and mobile experiences

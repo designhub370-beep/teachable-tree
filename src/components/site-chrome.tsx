@@ -22,7 +22,7 @@ export function SiteHeader() {
           </a>
         </div>
       </div>
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
+      <div className="mx-auto flex max-w-6xl flex-col items-stretch gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
         <Link to="/" className="flex items-center gap-2.5">
           <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 object-contain" />
           <span className="leading-tight">
@@ -32,18 +32,18 @@ export function SiteHeader() {
             </span>
           </span>
         </Link>
-        <nav className="flex flex-wrap items-center justify-end gap-x-3 gap-y-1 sm:gap-x-5">
+        <nav className="flex items-center gap-4 overflow-x-auto pb-1 sm:justify-end sm:gap-5 sm:overflow-visible sm:pb-0">
           <button type="button" onClick={() => window.history.back()} aria-label="Go back" title="Go back" className="text-muted-foreground transition-colors hover:text-foreground">
             <ArrowLeft className="size-4" />
           </button>
-          <Link to="/courses" className={linkCls} activeProps={active}>Courses</Link>
-          <Link to="/materials" className={linkCls} activeProps={active}>Material</Link>
-          <Link to="/gallery" className={linkCls} activeProps={active}>Gallery</Link>
-          <Link to="/teachers" className={linkCls} activeProps={active}>Teachers</Link>
-          <Link to="/admission" className="rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground">Admission</Link>
+          <Link to="/courses" className={`${linkCls} shrink-0`} activeProps={active}>Courses</Link>
+          <Link to="/materials" className={`${linkCls} shrink-0`} activeProps={active}>Material</Link>
+          <Link to="/gallery" className={`${linkCls} shrink-0`} activeProps={active}>Gallery</Link>
+          <Link to="/teachers" className={`${linkCls} shrink-0`} activeProps={active}>Teachers</Link>
+          <Link to="/admission" className="shrink-0 rounded-full bg-primary px-3 py-1.5 text-sm font-bold text-primary-foreground">Admission</Link>
           <Link
             to="/staff"
-            className="rounded-full border border-border px-3 py-1.5 text-sm font-semibold hover:bg-secondary"
+            className="shrink-0 rounded-full border border-border px-3 py-1.5 text-sm font-semibold hover:bg-secondary"
           >
             Staff
           </Link>
