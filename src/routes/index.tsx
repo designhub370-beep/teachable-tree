@@ -45,24 +45,31 @@ function Home() {
   return (
     <>
       {/* Hero */}
-      <section className="relative overflow-hidden">
+      <section className="hero-stage relative overflow-hidden">
+        <div className="study-drift pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+          <span className="study-symbol left-[5%] top-[12%]">π</span>
+          <span className="study-symbol left-[45%] top-[8%]">E = mc²</span>
+          <span className="study-symbol right-[7%] top-[18%]">∫ x dx</span>
+          <span className="study-symbol bottom-[14%] left-[12%]">a² + b² = c²</span>
+          <span className="study-symbol bottom-[10%] right-[12%]">H₂O</span>
+        </div>
         <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 py-10 lg:grid-cols-[1.1fr_1fr] lg:py-16">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold">
-              <span className="size-1.5 rounded-full bg-accent" /> Rahul Sharma · Director
+          <div className="relative z-10 animate-rise-in">
+            <span className="hero-badge inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs font-semibold">
+              <span className="relative flex size-2"><span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-70" /><span className="relative inline-flex size-2 rounded-full bg-accent" /></span> Rahul Sharma · Director
             </span>
-            <h1 className="mt-5 text-5xl font-extrabold leading-[0.95] sm:text-7xl">
-              Aroma Academy <span className="block text-primary">of Education</span>
+            <h1 className="hero-title mt-5 text-5xl font-extrabold leading-[0.95] sm:text-7xl">
+              Aroma Academy <span className="gold-shimmer-text block text-primary">of Education</span>
             </h1>
             <p className="mt-3 text-xl font-semibold">Learning that brings results.</p>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
               Classes 9–12 (Science, Commerce, Arts) along with SSC, CTET, UPTET, DSSSB, UPSC and Delhi &amp; UP Police preparation — all under one roof, from concept to result.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
-              <a href={tel(PHONES[0])} className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-lift hover:opacity-90">
+              <a href={tel(PHONES[0])} className="kinetic-primary inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-lift">
                 <Phone className="size-4" /> Call for Admission
               </a>
-              <Link to="/courses" className="inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 font-semibold hover:bg-secondary">
+              <Link to="/courses" className="kinetic-secondary group inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 font-semibold hover:bg-secondary">
                 Courses & Fees <ArrowRight className="size-4" />
               </Link>
             </div>
@@ -72,17 +79,18 @@ function Home() {
                 { i: BookOpen, v: `${materials.length}+`, l: "Notes & Tests" },
                 { i: Trophy, v: "100%", l: "Dedication" },
               ].map(({ i: I, v, l }) => (
-                <div key={l}>
-                  <I className="size-5 text-accent" />
+                <div key={l} className="stat-pop">
+                  <I className="size-5 text-accent transition-transform duration-300" />
                   <p className="mt-1 font-display text-2xl font-semibold">{v}</p>
                   <p className="text-xs text-muted-foreground">{l}</p>
                 </div>
               ))}
             </div>
           </div>
-          <div className="relative">
-            <img src={hero} alt="Students studying at Aroma Academy" width={1536} height={1024} className="aspect-[4/3] w-full rounded-3xl object-cover shadow-lift" />
-            <div className="absolute -bottom-5 left-4 right-4 rounded-2xl border border-border bg-card/95 p-4 shadow-soft backdrop-blur sm:left-auto sm:w-72">
+          <div className="hero-visual relative z-10">
+            <div className="hero-frame absolute -inset-3 rounded-3xl border border-primary/30" aria-hidden="true" />
+            <img src={hero} alt="Students studying at Aroma Academy" width={1536} height={1024} className="hero-image relative aspect-[4/3] w-full rounded-3xl object-cover shadow-lift" />
+            <div className="floating-helpline absolute -bottom-5 left-4 right-4 rounded-2xl border border-border bg-card/95 p-4 shadow-soft backdrop-blur sm:left-auto sm:w-72">
               <p className="text-xs uppercase tracking-[0.18em] text-muted-foreground">Helpline</p>
               {PHONES.map((p) => (
                 <a key={p} href={tel(p)} className="block font-display text-lg font-semibold">{p}</a>
@@ -95,7 +103,7 @@ function Home() {
       <section className="admissions-showcase overflow-hidden border-y border-primary/30 bg-ink-gradient py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <p className="admissions-pulse text-sm font-bold uppercase tracking-[0.28em] text-accent">Academic Session 2026–27</p>
-          <h2 className="mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admissions Open</h2>
+          <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admissions Open</h2>
           <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admissions guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
         </div>
         <div className="mt-9 space-y-3" aria-label="Available admission courses">
