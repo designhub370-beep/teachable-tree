@@ -160,6 +160,41 @@ function Home() {
         </div>
       </section>
 
+      {/* Our Center — real photos */}
+      <section className="ruled bg-paper py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex items-center gap-2">
+            <Camera className="size-5 text-accent" />
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Our Center</p>
+          </div>
+          <h2 className="mt-1 text-3xl font-semibold sm:text-4xl">A Look Inside Aroma Academy</h2>
+          <p className="mt-2 max-w-2xl text-muted-foreground">
+            Real moments from our classrooms, sessions and events — the place where learning happens every day.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: signboard, alt: "Aroma Academy of Education signboard", cap: "Aroma Academy of Education", span: "" },
+              { src: classroom, alt: "Classroom at Aroma Academy", cap: "Our Classroom", span: "" },
+              { src: classroomSession, alt: "Career counselling session in progress", cap: "Career Counselling Session", span: "lg:col-span-2" },
+              { src: studentsClass, alt: "Students attending a class", cap: "Students in Class", span: "" },
+              { src: directorDesk, alt: "Rahul Sharma, Director, at his desk", cap: "Rahul Sharma — Director", span: "" },
+            ].map((p) => (
+              <figure key={p.cap} className={`lift group overflow-hidden rounded-2xl border border-border bg-card shadow-soft ${p.span}`}>
+                <div className="overflow-hidden">
+                  <img
+                    src={p.src.url}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-sm font-semibold">{p.cap}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Explore links */}
       <section className="mx-auto grid max-w-6xl gap-4 px-4 pt-16 sm:grid-cols-3">
         {[

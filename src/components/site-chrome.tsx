@@ -15,7 +15,7 @@ export function SiteHeader() {
       <div className="bg-ink text-ink-foreground">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-1.5 text-xs">
           <span className="flex items-center gap-1.5">
-            <span className="size-1.5 rounded-full bg-accent" /> Admissions open — 2026-27
+            <span className="size-1.5 rounded-full bg-accent" /> Admission open — 2026-27
           </span>
           <a href={tel(PHONES[0])} className="flex items-center gap-1 font-semibold">
             <Phone className="size-3" /> {PHONES[0]}
