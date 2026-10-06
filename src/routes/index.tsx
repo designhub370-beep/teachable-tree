@@ -1,7 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, BookOpen, FileText, Phone, Trophy, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Camera, FileText, Phone, Trophy, Users } from "lucide-react";
 import hero from "@/assets/hero.jpg";
+import signboard from "@/assets/center-signboard.jpg.asset.json";
+import classroom from "@/assets/center-classroom.jpg.asset.json";
+import classroomSession from "@/assets/center-classroom-session.jpg.asset.json";
+import studentsClass from "@/assets/center-students-class.jpg.asset.json";
+import directorDesk from "@/assets/center-director-desk.jpg.asset.json";
 import { classesQuery, materialsQuery } from "@/lib/queries";
 import { FeeFinder } from "@/components/fee-finder";
 import { ClassCard } from "@/components/class-card";
@@ -103,7 +108,7 @@ function Home() {
       <section className="admissions-showcase overflow-hidden border-y border-primary/30 bg-ink-gradient py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <p className="admissions-pulse text-sm font-bold uppercase tracking-[0.28em] text-accent">Academic Session 2026–27</p>
-          <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admissions Open</h2>
+          <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admission Open</h2>
           <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admissions guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
         </div>
         <div className="mt-9 space-y-3" aria-label="Available admission courses">
