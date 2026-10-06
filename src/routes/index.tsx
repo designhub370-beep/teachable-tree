@@ -109,7 +109,7 @@ function Home() {
         <div className="mx-auto max-w-6xl px-4 text-center">
           <p className="admissions-pulse text-sm font-bold uppercase tracking-[0.28em] text-accent">Academic Session 2026–27</p>
           <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admission Open</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admissions guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
+          <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admission guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
         </div>
         <div className="mt-9 space-y-3" aria-label="Available admission courses">
           {[ADMISSION_COURSES.filter((_, i) => i % 2 === 0), ADMISSION_COURSES.filter((_, i) => i % 2 === 1)].map((row, index) => (
