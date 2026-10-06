@@ -30,7 +30,7 @@ function Admission() {
   return (
     <div className="mx-auto grid max-w-5xl gap-10 px-4 py-12 lg:grid-cols-[1fr_1.2fr]">
       <div>
-        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Admissions 2026-27</p>
+        <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Admission 2026-27</p>
         <h1 className="mt-1 text-4xl font-extrabold sm:text-5xl">Apply for Admission</h1>
         <p className="mt-3 text-muted-foreground">Complete the form and Rahul Sir’s team will contact you shortly. You may also call us directly:</p>
         {PHONES.map((p) => (

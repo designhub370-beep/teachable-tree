@@ -73,7 +73,7 @@ function SignupScreen({ onGuest }: { onGuest: () => void }) {
       <div>
         <div className="flex items-center gap-4">
           <img src={logo} alt="Aroma Academy logo" width={88} height={88} className="size-20 rounded-2xl bg-foreground p-1.5 sm:size-24" />
-          <span className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-primary">Admissions open 2026-27</span>
+          <span className="rounded-full border border-border px-3 py-1 text-xs font-semibold text-primary">Admission open 2026-27</span>
         </div>
         <h1 className="mt-6 text-5xl font-extrabold leading-[0.95] sm:text-7xl">
           Aroma Academy <span className="block text-primary">of Education</span>

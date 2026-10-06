@@ -1,7 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowRight, BookOpen, FileText, Phone, Trophy, Users } from "lucide-react";
+import { ArrowRight, BookOpen, Camera, FileText, Phone, Trophy, Users } from "lucide-react";
 import hero from "@/assets/hero.jpg";
+import signboard from "@/assets/center-signboard.jpg.asset.json";
+import classroom from "@/assets/center-classroom.jpg.asset.json";
+import classroomSession from "@/assets/center-classroom-session.jpg.asset.json";
+import studentsClass from "@/assets/center-students-class.jpg.asset.json";
+import directorDesk from "@/assets/center-director-desk.jpg.asset.json";
 import { classesQuery, materialsQuery } from "@/lib/queries";
 import { FeeFinder } from "@/components/fee-finder";
 import { ClassCard } from "@/components/class-card";
@@ -103,8 +108,8 @@ function Home() {
       <section className="admissions-showcase overflow-hidden border-y border-primary/30 bg-ink-gradient py-12 sm:py-16">
         <div className="mx-auto max-w-6xl px-4 text-center">
           <p className="admissions-pulse text-sm font-bold uppercase tracking-[0.28em] text-accent">Academic Session 2026–27</p>
-          <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admissions Open</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admissions guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
+          <h2 className="gold-shimmer-text mt-2 text-5xl font-extrabold uppercase text-primary sm:text-7xl">Admission Open</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-ink-foreground/75">Admission guidance is available for the following degree, diploma, professional, and vocational programmes.</p>
         </div>
         <div className="mt-9 space-y-3" aria-label="Available admission courses">
           {[ADMISSION_COURSES.filter((_, i) => i % 2 === 0), ADMISSION_COURSES.filter((_, i) => i % 2 === 1)].map((row, index) => (
@@ -151,6 +156,41 @@ function Home() {
             <Program title="Class 9 & 10" text="Maths and Science — board-focused teaching, weekly tests and doubt-clearing sessions." />
             <Program title="Class 11 & 12" text="Science (PCM), Commerce (Accountancy, Economics) and Arts — every stream covered." />
             <Program title="Competitive Exams" text="Complete preparation for teaching, SSC, UPSC and police exams." chips={EXAMS} />
+          </div>
+        </div>
+      </section>
+
+      {/* Our Center — real photos */}
+      <section className="ruled bg-paper py-16">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="flex items-center gap-2">
+            <Camera className="size-5 text-accent" />
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Our Center</p>
+          </div>
+          <h2 className="mt-1 text-3xl font-semibold sm:text-4xl">A Look Inside Aroma Academy</h2>
+          <p className="mt-2 max-w-2xl text-muted-foreground">
+            Real moments from our classrooms, sessions and events — the place where learning happens every day.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              { src: signboard, alt: "Aroma Academy of Education signboard", cap: "Aroma Academy of Education", span: "" },
+              { src: classroom, alt: "Classroom at Aroma Academy", cap: "Our Classroom", span: "" },
+              { src: classroomSession, alt: "Career counselling session in progress", cap: "Career Counselling Session", span: "lg:col-span-2" },
+              { src: studentsClass, alt: "Students attending a class", cap: "Students in Class", span: "" },
+              { src: directorDesk, alt: "Rahul Sharma, Director, at his desk", cap: "Rahul Sharma — Director", span: "" },
+            ].map((p) => (
+              <figure key={p.cap} className={`lift group overflow-hidden rounded-2xl border border-border bg-card shadow-soft ${p.span}`}>
+                <div className="overflow-hidden">
+                  <img
+                    src={p.src.url}
+                    alt={p.alt}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-sm font-semibold">{p.cap}</figcaption>
+              </figure>
+            ))}
           </div>
         </div>
       </section>
