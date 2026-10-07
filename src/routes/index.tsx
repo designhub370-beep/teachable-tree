@@ -16,11 +16,10 @@ const EXAMS = ["SSC", "CTET", "UPTET", "DSSSB", "UP RET", "UPSC", "Delhi Police"
 const SUBJECTS = ["Mathematics", "Science", "Physics", "Chemistry", "Economics", "Accountancy", "English"];
 const ADMISSION_COURSES = [
   "BA", "MA", "B.COM", "M.COM", "B.SC", "M.SC", "BBA", "BCA", "MBA", "MCA", "B.LIB", "M.LIB", "PGDCA", "MSW",
-  "B.TECH", "M.TECH", "BA.LLB", "LLB", "LLM", "D.EL.ED", "B.Ed.", "M.Ed.", "BP.Ed", "MP.Ed.", "D.PHARMA", "B.PHARMA",
-  "ANM", "GNM", "B.SC Nursing", "PhD", "MBBS", "BDS", "BAMS", "BNYS", "Hotel Management", "CMS & ED", "BPT",
-  "ITI Courses — All Trades", "BMLT", "DMLT", "Polytechnic — All Trades", "Medical — All Degrees & Diplomas",
-  "Yoga — All Degrees & Diplomas", "Computer — All Degrees & Diplomas", "B.Voc — All Degrees & Diplomas",
-  "Fashion Designing — All Degrees & Diplomas", "N.T.T. & All Vocational Degrees & Diplomas",
+  "B.TECH", "M.TECH", "BA.LLB", "LLB", "LLM", "D.EL.ED", "B.Ed.", "M.Ed.", "B.P.ED.", "M.P.ED.", "D.PHARMA", "B.PHARMA",
+  "ANM", "GNM", "B.SC Nursing", "PhD", "Hotel Management", "CMS & ED", "BPT",
+  "ITI Courses — All Trades", "BMLT", "DMLT", "Polytechnic — All Trades",
+  "Yoga — All Degrees & Diplomas", "N.T.T. & All Vocational Degrees & Diplomas",
 ];
 
 export const Route = createFileRoute("/")({
@@ -122,6 +121,9 @@ function Home() {
             </div>
           ))}
         </div>
+        <p className="mx-auto mt-8 max-w-3xl px-4 text-center text-base font-semibold text-ink-foreground/90">
+          Students of any state and any age can pass Class 10th and 12th through BOSSE, NIOS & CBSE Boards. (Valid for all government jobs.)
+        </p>
         <div className="mx-auto mt-8 flex max-w-6xl justify-center px-4">
           <Link to="/admission" className="inline-flex items-center gap-2 rounded-xl bg-primary px-6 py-3.5 font-bold text-primary-foreground shadow-lift transition-transform hover:scale-105">
             Apply for Admission <ArrowRight className="size-4" />
@@ -170,6 +172,9 @@ function Home() {
           <h2 className="mt-1 text-3xl font-semibold sm:text-4xl">A Look Inside Aroma Academy</h2>
           <p className="mt-2 max-w-2xl text-muted-foreground">
             Real moments from our classrooms, sessions and events — the place where learning happens every day.
+          </p>
+          <p className="mt-2 max-w-2xl text-sm font-semibold text-accent">
+            To view the photos, simply search for Aroma Academy of Education on Justdial.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
