@@ -16,7 +16,21 @@ export function StudentGate({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     setGuest(window.localStorage.getItem("aroma-guest-access") === "true");
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    supabase.auth
+      .getSession()
+      .then(({ data, error }) => {
+        if (error) throw error;
+        setSession(data.session);
+      })
+      .catch(async () => {
+        // Bad or clock-skewed token: drop it and let the visitor continue.
+        try {
+          await supabase.auth.signOut({ scope: "local" });
+        } catch {
+          /* ignore */
+        }
+        setSession(null);
+      });
     const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
     return () => data.subscription.unsubscribe();
   }, []);
