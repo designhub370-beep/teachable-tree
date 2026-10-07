@@ -67,7 +67,7 @@ function Home() {
             </h1>
             <p className="mt-3 text-xl font-semibold">Learning that brings results.</p>
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
-              Classes 9–12 (Science, Commerce, Arts) along with SSC, CTET, UPTET, DSSSB, UPSC and Delhi &amp; UP Police preparation — all under one roof, from concept to result.
+              Classes 9–12 (Science, Commerce, Arts) along with SSC, CTET, UPTET, DSSSB, UPSSSC, Delhi & U.P Police Exam, etc — all under one roof, from concept to result.
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <a href={tel(PHONES[0])} className="kinetic-primary inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3.5 font-semibold text-primary-foreground shadow-lift">
