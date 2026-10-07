@@ -26,10 +26,7 @@ export function SiteHeader() {
         <Link to="/" className="flex items-center gap-2.5">
           <img src={logo} alt="Aroma Academy logo" width={44} height={44} className="size-11 object-contain" />
           <span className="leading-tight">
-            <span className="block font-display text-lg font-semibold">Aroma Academy</span>
-            <span className="block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-              of Education
-            </span>
+            <span className="block font-display text-lg font-semibold whitespace-nowrap">Aroma Academy of Education</span>
           </span>
         </Link>
         <nav className="flex items-center gap-4 overflow-x-auto pb-1 sm:justify-end sm:gap-5 sm:overflow-visible sm:pb-0">
